@@ -15,6 +15,8 @@ const flash = require('express-flash');
 
 var app = express();
 
+require('dotenv').config();
+
 // User schema.
 let userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
@@ -199,11 +201,11 @@ app.post('/forgot', (req, res, next) => {
       },
       function (token, user, done) {
         const transporter = nodemailer.createTransport({
-          host: 'smtp.ethereal.email',
+          host: process.env.SMTP_HOST,
           port: 587,
           auth: {
-            user: 'flavio16@ethereal.email',
-            pass: 'vCttTme1rHqEerENm3',
+            user: process.env.SMTP_AUTH_USER,
+            pass: process.env.SMTP_AUTH_PASSWORD,
           },
         });
 
